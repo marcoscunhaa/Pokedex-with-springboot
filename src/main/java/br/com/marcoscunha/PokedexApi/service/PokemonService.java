@@ -30,18 +30,26 @@ public class PokemonService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Pokemon fetchAndSavePokemon(String pokemonName) {
-        String url = baseApiUrl + "pokemon/" + pokemonName.toLowerCase();
+    public Pokemon fetchAndSavePokemon(String pokemonIdentifier) {
+        String url = baseApiUrl + "pokemon/" + pokemonIdentifier.toLowerCase();
 
         Map<String, Object> response = fetchFromApi(url);
         if (response == null) return null;
 
-        Pokemon pokemon = new Pokemon();
         String name = Optional.ofNullable((String) response.get("name")).orElse(null);
         if (name == null) {
             System.err.println("Nome do Pokémon não encontrado.");
             return null;
         }
+
+        // Verifica se já existe no banco pelo nome
+        Optional<Pokemon> existingPokemon = repository.findByName(name);
+        if (existingPokemon.isPresent()) {
+            System.out.println("Pokémon '" + name + "' já existe no banco, pulando...");
+            return existingPokemon.get();
+        }
+
+        Pokemon pokemon = new Pokemon();
         pokemon.setName(name);
         pokemon.setHeight((int) response.get("height"));
         pokemon.setWeight((int) response.get("weight"));
@@ -62,21 +70,19 @@ public class PokemonService {
             return repository.save(pokemon);
         }
 
-        // Obtendo dados da URL de species
         Map<String, Object> speciesData = fetchFromApi(speciesUrl);
         if (speciesData == null) {
             handleSpeciesFallback(pokemon);
             return repository.save(pokemon);
         }
 
-        // Adicionando a geração (essa informação é comumente disponível em "generation" dentro de speciesData)
         Map<String, Object> generationInfo = (Map<String, Object>) speciesData.get("generation");
         if (generationInfo != null) {
-            String generationName = (String) generationInfo.get("name"); // Exemplo: "generation-i"
-            pokemon.setGeneration(generationName);  // Adicionando geração ao Pokémon
+            String generationName = (String) generationInfo.get("name");
+            pokemon.setGeneration(generationName);
         }
 
-        pokemon.setEvolution(parseEvolution(speciesData, pokemonName));
+        pokemon.setEvolution(parseEvolution(speciesData, pokemonIdentifier));
         pokemon.setDescription(parseFlavorText(speciesData));
 
         return repository.save(pokemon);
