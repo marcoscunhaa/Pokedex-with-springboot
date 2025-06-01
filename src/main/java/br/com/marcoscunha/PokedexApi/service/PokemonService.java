@@ -34,7 +34,10 @@ public class PokemonService {
         String url = baseApiUrl + "pokemon/" + pokemonIdentifier.toLowerCase();
 
         Map<String, Object> response = fetchFromApi(url);
-        if (response == null) return null;
+        if (response == null) {
+            System.err.println("Falha ao buscar dados do Pokémon: " + pokemonIdentifier);
+            return null;
+        }
 
         String name = Optional.ofNullable((String) response.get("name")).orElse(null);
         if (name == null) {
@@ -42,13 +45,13 @@ public class PokemonService {
             return null;
         }
 
-        // Verifica se já existe no banco pelo nome
         Optional<Pokemon> existingPokemon = repository.findByName(name);
         if (existingPokemon.isPresent()) {
-            System.out.println("Pokémon '" + name + "' já existe no banco, pulando...");
+            System.out.println("Pokémon '" + name + "' já existe no banco. Retornando existente.");
             return existingPokemon.get();
         }
 
+        // Criação do novo Pokémon
         Pokemon pokemon = new Pokemon();
         pokemon.setName(name);
         pokemon.setHeight((int) response.get("height"));
@@ -62,31 +65,30 @@ public class PokemonService {
         pokemon.setMove(parseNameList((List<Map<String, Object>>) response.get("moves"), "move"));
         pokemon.setStats(parseStats((List<Map<String, Object>>) response.get("stats")));
 
+        // Informação de espécie
         Map<String, Object> speciesInfo = (Map<String, Object>) response.get("species");
         String speciesUrl = Optional.ofNullable(speciesInfo).map(s -> (String) s.get("url")).orElse(null);
 
-        if (speciesUrl == null) {
+        if (speciesUrl != null) {
+            Map<String, Object> speciesData = fetchFromApi(speciesUrl);
+            if (speciesData != null) {
+                Map<String, Object> generationInfo = (Map<String, Object>) speciesData.get("generation");
+                if (generationInfo != null) {
+                    pokemon.setGeneration((String) generationInfo.get("name"));
+                }
+                pokemon.setEvolution(parseEvolution(speciesData, pokemonIdentifier));
+                pokemon.setDescription(parseFlavorText(speciesData));
+            } else {
+                handleSpeciesFallback(pokemon);
+            }
+        } else {
             handleSpeciesFallback(pokemon);
-            return repository.save(pokemon);
         }
 
-        Map<String, Object> speciesData = fetchFromApi(speciesUrl);
-        if (speciesData == null) {
-            handleSpeciesFallback(pokemon);
-            return repository.save(pokemon);
-        }
-
-        Map<String, Object> generationInfo = (Map<String, Object>) speciesData.get("generation");
-        if (generationInfo != null) {
-            String generationName = (String) generationInfo.get("name");
-            pokemon.setGeneration(generationName);
-        }
-
-        pokemon.setEvolution(parseEvolution(speciesData, pokemonIdentifier));
-        pokemon.setDescription(parseFlavorText(speciesData));
-
+        System.out.println("Salvando novo Pokémon: " + name);
         return repository.save(pokemon);
     }
+
 
 
     public void fetchAndSaveAllPokemons() {
