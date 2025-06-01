@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200", "https://pokedex-with-angular.vercel.app")
+                        .allowedOrigins("http://localhost:4200", "http://pokedex-sigma-plum.vercel.app\n")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*");
             }
