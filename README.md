@@ -89,9 +89,9 @@ spring.profiles.active=dev
 🎯 Application running
 -------------------
 
-![Loading](https://i.ibb.co/N27pJGbh/Whats-App-Image-2025-06-02-at-11-21-01.jpg "Loading")
+![pokedex.app](https://s1.gifyu.com/images/bxdnm.gif "pokedex.app")
 
-![app](https://gifyu.com/image/bxdnm "app")
+
 
 
 
