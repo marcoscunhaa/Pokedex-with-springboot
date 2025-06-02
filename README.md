@@ -89,11 +89,7 @@ spring.profiles.active=dev
 🎯 Application running
 -------------------
 
-![pokedex.app](https://s1.gifyu.com/images/bxdnm.gif "pokedex.app")
-
-
-
-
+[![bxdnm.gif](https://s14.gifyu.com/images/bxdnm.gif)](https://gifyu.com/image/bxdnm)
 
 
 
