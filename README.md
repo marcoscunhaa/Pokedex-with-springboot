@@ -89,12 +89,14 @@ spring.profiles.active=dev
 🎯 Application running
 -------------------
 
-![Loading](https://ibb.co/N27pJGbh "Loading")
+![Loading](https://i.ibb.co/N27pJGbh/Whats-App-Image-2025-06-02-at-11-21-01.jpg "Loading")
 
-![advenced-search](https://ibb.co/LqmKkT8URL-ou-caminho-da-imagem "advenced-search")
+![app](https://gifyu.com/image/bxdnm "app")
 
-![pokemon-list](https://ibb.co/gM1sNV9P "pokemon-list")
 
-![pokemon-details-top](https://ibb.co/KcQCnYxR "pokemon-details-top")
 
-![pokemon-details-botton](https://ibb.co/RGv9fVdcURL-ou-caminho-da-imagem "pokemon-details-botton")
+
+
+
+
+
