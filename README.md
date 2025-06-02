@@ -1,3 +1,5 @@
+
+
 # 🧠 Pokédex API - Java
 
 A REST API developed with **Spring Boot 3.5.0** and **Java 17**, which consumes data from the [PokéAPI](https://pokeapi.co/api/v2/) and stores it locally in a **MySQL** database. The system allows you to search for Pokémon by multiple criteria, in addition to including an advanced search mode with combined filters.
@@ -87,14 +89,12 @@ spring.profiles.active=dev
 🎯 Application running
 -------------------
 
-<a href="https://ibb.co/N27pJGbh"><img title="Loading" src="https://i.ibb.co/N27pJGbh/Whats-App-Image-2025-06-02-at-11-21-01.jpg" alt="Loading"></a>
+![Loading](https://ibb.co/N27pJGbh "Loading")
 
-<a href="https://ibb.co/gM1sNV9P"><img title="Pokemons List" src="https://i.ibb.co/gM1sNV9P/Whats-App-Image-2025-06-02-at-11-15-58.jpg" alt="Pokemons List"></a>
+![advenced-search](https://ibb.co/LqmKkT8URL-ou-caminho-da-imagem "advenced-search")
 
-<a href="https://ibb.co/LqmKkT8"><img title="advanced search" src="https://i.ibb.co/LqmKkT8/Whats-App-Image-2025-06-02-at-11-16-58.jpg" alt="advanced search"></a>
+![pokemon-list](https://ibb.co/gM1sNV9P "pokemon-list")
 
-<a href="https://ibb.co/KcQCnYxR"><img title="pokemon-details-top" src="https://i.ibb.co/KcQCnYxR/Whats-App-Image-2025-06-02-at-11-19-16.jpg" alt="pokemon-details-top"></a>
+![pokemon-details-top](https://ibb.co/KcQCnYxR "pokemon-details-top")
 
-<a href="https://ibb.co/RGv9fVdc"><img title="pokemon-details-botton" src="https://i.ibb.co/RGv9fVdc/Whats-App-Image-2025-06-02-at-11-19-16-1.jpg" alt="pokemon-details-botton"></a>
-
-
+![pokemon-details-botton](https://ibb.co/RGv9fVdcURL-ou-caminho-da-imagem "pokemon-details-botton")
